@@ -1,0 +1,156 @@
+<%inherit file="layout/layout_three_column.html"/>
+
+<%def name="page_class()">page-dashboard</%def>
+
+<%block name="styles">
+<link href="/static/custom/css/dashboard.css" rel="stylesheet">
+<link href="/static/custom/css/chat.css" rel="stylesheet">
+</%block>
+
+<%block name="scripts">
+    <script src="/static/js/jquery.validate.js"></script>
+    <script src="/static/js/timeago.js"></script>
+    <script src="/static/custom/js/utils.js"></script>
+    <script src="/static/custom/js/post.js"></script>
+    <script src="/static/custom/js/feed.js"></script>
+        <script src="/static/custom/js/dashboard.js"></script>
+    <script src="/static/custom/js/chat.js"></script>
+    %if (request.session['userType'] == 1):
+        <script>
+                $(document).ready(function(){
+                        $('#myModal').modal('show');
+                });
+        </script>
+        %endif
+</%block>
+
+<style type="text/css">
+        .modal {
+                z-index: 4000;
+        }
+</style>
+<%block name="data_file">
+<%include file="../data/dashboard.html"/>
+</%block>
+
+<!-- dashboard body starts here -->
+<%block name="modal">
+<!--Modal for new users to introduce themselves-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <h4 class="modal-title">Introduce Yourself</h4>
+                        </div>
+                        <form id="form-post" method="post">
+                                <div class="modal-body">
+                                        <p class="curent-location" data-bind="text: shownArea"></p>
+                                        <p>
+                                                Welcome...!! Tell something about yourself to your beloved neighbours
+                                        </p>
+                                        <div class="control-label">
+                                                <textarea name="post" class="form-control" id="introduction-post" required="required"></textarea>
+                                                <div class="show-message">
+                                                        <font color="red"></font>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="saveIntroPost()">
+                                                Broadcast
+                                        </button>
+                                </div>
+                        </form>
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</%block>
+<h3 class="page-title">Activity and Neighbourhood</h3>
+<div class="post-issue-container well well-silver">
+        <form id="form-post" method="post">
+                <div class="list-menu">
+                        <select data-bind="options: availableAreas,optionsText: 'areaType',
+                        optionsValue:'areaId' , value:selectedArea" name="locations" id="locations" class="select2-offscreen"></select>
+                        <p class="curent-location" data-bind="text: shownArea"></p>
+                </div>
+                <div class="issue-container clearfix">
+                        <textarea name="post" rows="1" class="form-control issue" placeholder="Write something .. "></textarea>
+                </div>
+                <input type="hidden" name="tag" value="">
+                <a href="javascript:void(0);" class="attachment pull-left" style="display: none"><img src="/static/img/attachment-icon.png" alt="Attachment"></a>
+                <div class="issue-action">
+                        <input type="submit" name="submit" class="btn btn-saffron issue-btn" value="Post">
+                </div>
+        </form>
+</div>
+<div class="separator"></div>
+<div id='post-list' class="post-lists"></div>
+<div class="extra-content" style="visibility: hidden;"></div>
+<div class="well text-center my-groups-all" id="more-button" data-bind="visible: remaining_posts() > 0">
+        Load more posts (<span data-bind="text: remaining_posts">N/A</span>)
+</div>
+<div class="clearfix bottom-space hidden-xs"></div>
+
+<%include file="ko/feed.html"/>
+        </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</%block>
+<h3 class="page-title">Activity and Neighbourhood</h3>
+<div class="post-issue-container well well-silver">
+        <form id="form-post" method="post">
+                <div class="list-menu">
+                        <select data-bind="options: availableAreas,optionsText: 'areaType',
+                        optionsValue:'areaId' , value:selectedArea" name="locations" id="locations" class="select2-offscreen"></select>
+                        <p class="curent-location" data-bind="text: shownArea"></p>
+                </div>
+                <div class="issue-container clearfix">
+                        <textarea name="post" rows="1" class="form-control issue" placeholder="Write something .. "></textarea>
+                </div>
+                <input type="hidden" name="tag" value="">
+                <a href="javascript:void(0);" class="attachment pull-left" style="display: none"><img src="/static/img/attachment-icon.png" alt="Attachment"></a>
+                <div class="issue-action">
+                        <input type="submit" name="submit" class="btn btn-saffron issue-btn" value="Post">
+                </div>
+        </form>
+</div>
+<div class="separator"></div>
+<div id='post-list' class="post-lists"></div>
+<div class="extra-content" style="visibility: hidden;"></div>
+<div class="well text-center my-groups-all" id="more-button" data-bind="visible: remaining_posts() > 0">
+        Load more posts (<span data-bind="text: remaining_posts">N/A</span>)
+</div>
+<div class="clearfix bottom-space hidden-xs"></div>
+
+<%include file="ko/feed.html"/>
+        </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</%block>
+<h3 class="page-title">Activity and Neighbourhood</h3>
+<div class="post-issue-container well well-silver">
+        <form id="form-post" method="post">
+                <div class="list-menu">
+                        <select data-bind="options: availableAreas,optionsText: 'areaType',
+                        optionsValue:'areaId' , value:selectedArea" name="locations" id="locations" class="select2-offscreen"></select>
+                        <p class="curent-location" data-bind="text: shownArea"></p>
+                </div>
+                <div class="issue-container clearfix">
+                        <textarea name="post" rows="1" class="form-control issue" placeholder="Write something .. "></textarea>
+                </div>
+                <input type="hidden" name="tag" value="">
+                <a href="javascript:void(0);" class="attachment pull-left" style="display: none"><img src="/static/img/attachment-icon.png" alt="Attachment"></a>
+                <div class="issue-action">
+                        <input type="submit" name="submit" class="btn btn-saffron issue-btn" value="Post">
+                </div>
+        </form>
+</div>
+<div class="separator"></div>
+<div id='post-list' class="post-lists"></div>
+<div class="extra-content" style="visibility: hidden;"></div>
+<div class="well text-center my-groups-all" id="more-button" data-bind="visible: remaining_posts() > 0">
+        Load more posts (<span data-bind="text: remaining_posts">N/A</span>)
+</div>
+<div class="clearfix bottom-space hidden-xs"></div>
+
+<%include file="ko/feed.html"/>
+<!-- dashboard body ends here -->
+
